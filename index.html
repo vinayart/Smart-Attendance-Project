@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .mark:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .mark {
+            background-color: re;
+        }
+    </style>
+    <title>Face Recognition</title>
+</head>
+
+<body style="background-color: skyblue; border: 5px black solid;">
+    <div class="row" style="text-align: center;">
+        <h1 style="font-size: 50px; color: red; text-shadow: 5px 5px 0px black;">SMART ATTENDENCE PORTAL</h1>
+        <h2>Total Members in An Class:10</h2>
+        <p>[
+            'anushka','barack','bill gates','dalai lama','indira','milinda','modi','pichai','vikas','virat']</p>
+        <div class="col-md-6" style="text-align: center; border: 3px solid black;">
+            <h1>Face Recognition</h1>
+
+            <form action="/" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" accept="image/*" required>
+                <button type="submit">Check Presenty</button>
+            </form>
+
+            {% if image %}
+            <h2 id="det">Detected Celebrity:</h2>
+            <img src="data:image/jpeg;base64,{{ image }}" 
+                style="max-width: 800px; max-width: 100%; box-shadow: 10px 10px 10px black;" id="pre_img">
+            {% endif %}
+        </div>
+
+
+        <div class="col-md-6" style="border: 3px black solid;">
+            {% if predictions %}
+            <h1 id="pres">Present Members:</h1>
+            <ul id="unod">
+                {% for prediction in predictions %}
+                <li>{{ prediction }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if absents %}
+            <h1 id="abse">Absent Members:</h1>
+            <ul id="abs">
+                {% for prediction in absents %}
+                <li>{{ prediction }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% if count %}
+            <h2 id="per_va">Presenty percentage</h2>
+            <label for="perc" id="perc">{{ (count/10 *100)}}%</label>
+            {% endif %}
+
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <p style="cursor: pointer; font-size: 30px; font-weight: 30px; width: fit-content; margin-top: auto;" class="mark" onclick="redirect()">MARK
+                ATTENDANCE</p>
+        </div>
+    </div>
+    <script>
+        function redirect() {
+            window.alert("attendence marked")
+    document.getElementById("pre_img").src=''
+    document.getElementById("unod").innerHTML=''
+    document.getElementById("abs").innerHTML=''
+    document.getElementById("perc").innerHTML=''
+    document.getElementById("per_va").innerHTML=''
+    document.getElementById("det").innerHTML=''
+    document.getElementById("pres").innerHTML=''
+    document.getElementById("abse").innerHTML=''
+        }
+    </script>
+</body>
+
+</html>
